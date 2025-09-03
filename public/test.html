@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Firestore Write Test</title>
+</head>
+<body>
+  <h1>Firestore Anonymous Write Test</h1>
+  <button id="testBtn">Add Test Doc</button>
+  <pre id="result" style="color: red;"></pre>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3algpcRUAYj6qNNyYo7Do146Ublb96qU",
+      authDomain: "bdp-fund.firebaseapp.com",
+      projectId: "bdp-fund",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.getElementById("testBtn").addEventListener("click", async () => {
+      const result = document.getElementById("result");
+      try {
+        await addDoc(collection(db, "featureRequests"), {
+          name: "Test User",
+          persona: "merchant",
+          description: "This is a test feature request",
+          createdAt: new Date()
+        });
+        result.style.color = "green";
+        result.textContent = "✅ Write succeeded!";
+      } catch (err) {
+        console.error(err);
+        result.style.color = "red";
+        result.textContent = "❌ Write failed: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+// Firestore security rules for Fair Delivery Platform
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /projectMetrics/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /featureRequests/{docId} {
+      allow read: if true;
+      allow create: if
+        request.resource.data.persona in ['customer','courier','merchant']
+        && request.resource.data.description is string
+        && request.resource.data.description.size() > 5
+        && request.resource.data.description.size() < 1000
+        && request.resource.data.createdAt != null;
+      allow update, delete: if false;
+    }
+
+    match /updates/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}
