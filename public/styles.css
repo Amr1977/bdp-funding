@@ -1,0 +1,233 @@
+/* --- Fair Delivery Platform custom styles --- */
+body {
+  background-color: #f4f6f8;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+header {
+  background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+  color: white;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+  font-weight: 800;
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.025em;
+}
+
+header p {
+  max-width: 750px;
+  margin: 0 auto 1.5rem;
+  font-size: 1.15rem;
+  opacity: 0.9;
+}
+
+header .btn-light {
+  font-weight: 600;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #0a66c2;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+header .btn-light:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+section {
+  padding: 2.5rem 1.5rem;
+  background-color: #ffffff;
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+section:hover {
+  transform: translateY(-4px);
+}
+
+section h2 {
+  font-weight: 700;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+/* Payment card style */
+.payment-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.payment-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.payment-label {
+  font-weight: 600;
+  color: #333;
+}
+
+.payment-value {
+  font-family: 'Fira Code', monospace;
+  background-color: #f8f9fa;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: #6c757d;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.copy-btn:hover {
+  color: #0d6efd;
+  transform: scale(1.1);
+}
+
+#copy-feedback {
+  min-height: 1.5rem;
+  color: #28a745;
+  font-size: 0.9rem;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#copy-feedback.show {
+  opacity: 1;
+}
+
+#confirmation {
+  min-height: 1.5rem;
+  color: #dc3545;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Form styling */
+.form-control, .form-select {
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0a58ca;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Feature list styling */
+#featureList .list-group-item {
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+#featureList .list-group-item:hover {
+  background-color: #e9ecef;
+}
+
+/* Role badges */
+.role-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  color: #fff;
+  margin-left: 0.5rem;
+}
+.role-badge.customer { background-color: #0d6efd; }
+.role-badge.courier { background-color: #198754; }
+.role-badge.merchant { background-color: #fd7e14; }
+
+/* Mobile tweaks */
+@media (max-width: 576px) {
+  header {
+    padding: 2rem 1rem;
+  }
+  header h1 {
+    font-size: 2rem;
+  }
+  section {
+    padding: 1.5rem 1rem;
+    margin: 1rem 0.5rem;
+  }
+  .payment-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .payment-value {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+  .form-control, .form-select {
+    font-size: 0.9rem;
+  }
+}
+
+/* Accessibility */
+:focus {
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Fade-in for features */
+.feature-fade {
+  animation: fadeIn 0.4s ease forwards;
+}

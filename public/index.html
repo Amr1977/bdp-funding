@@ -2,192 +2,110 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fair Delivery Platform – Funding & Feature Requests</title>
   <meta name="description" content="Support the Fair Delivery Platform – a transparent, courier-friendly delivery service. Contribute funding, suggest features, and help build a fairer gig economy." />
   <meta name="keywords" content="fair delivery, courier rights, gig economy, delivery platform, social impact, last mile delivery, startup funding, feature requests" />
 
-  <!-- Bootstrap 5 CSS -->
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <style>
-    body { background-color: #f8f9fa; }
-    header { background-color: #0d6efd; color: white; padding: 2rem 1rem; text-align: center; }
-    section { padding: 2rem 1rem; background-color: white; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-    .payment-method { display: flex; justify-content: center; align-items: center; margin: 0.5rem 0; flex-wrap: wrap; }
-    .payment-value { font-family: monospace; margin: 0 0.5rem; }
-    .copy-btn { background: none; border: none; cursor: pointer; font-size: 1.2rem; }
-    .copy-btn:hover { color: #0d6efd; }
-  </style>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyA3algpcRUAYj6qNNyYo7Do146Ublb96qU",
-      authDomain: "bdp-fund.firebaseapp.com",
-      databaseURL: "https://bdp-fund-default-rtdb.firebaseio.com",
-      projectId: "bdp-fund",
-      storageBucket: "bdp-fund.firebasestorage.app",
-      messagingSenderId: "536026435831",
-      appId: "1:536026435831:web:09842d7f7f731f0daf03f2"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    async function loadFeatures() {
-      try {
-        const qSnap = await getDocs(query(collection(db, "featureRequests"), orderBy("createdAt", "desc")));
-        const list = document.getElementById("featureList");
-        list.innerHTML = "";
-        qSnap.forEach(docSnap => {
-          const f = docSnap.data();
-          const li = document.createElement("li");
-          li.classList.add("list-group-item");
-          li.innerHTML = `<strong>${f.name || "Anonymous"}</strong> (${f.persona}): ${f.description}`;
-          list.appendChild(li);
-        });
-      } catch (err) {
-        console.error("Error loading features:", err);
-        document.getElementById("featureList").innerHTML = `<li class="list-group-item text-danger">⚠ Unable to load feature requests.</li>`;
-      }
-    }
-
-    async function submitFeature(e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      const persona = document.getElementById("persona").value;
-      const description = document.getElementById("description").value.trim();
-      const confirmation = document.getElementById("confirmation");
-
-      if (!description) {
-        confirmation.className = "text-danger fw-bold";
-        confirmation.innerText = "❌ Please enter a description.";
-        return;
-      }
-
-      try {
-        await addDoc(collection(db, "featureRequests"), {
-          name,
-          persona,
-          description,
-          createdAt: new Date()
-        });
-        confirmation.className = "text-success fw-bold";
-        confirmation.innerText = "✅ Thank you! Your feature request has been submitted.";
-        e.target.reset();
-        loadFeatures();
-      } catch (err) {
-        console.error("Error adding feature request:", err);
-        confirmation.className = "text-danger fw-bold";
-        confirmation.innerText = "❌ Sorry, something went wrong. Please try again.";
-      }
-    }
-
-    function setupCopyButtons() {
-      const feedback = document.getElementById("copy-feedback");
-      document.querySelectorAll(".copy-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const targetId = btn.getAttribute("data-target");
-          const text = document.getElementById(targetId).innerText;
-          navigator.clipboard.writeText(text).then(() => {
-            feedback.innerText = "✅ Copied to clipboard!";
-            feedback.className = "text-success fw-bold text-center";
-            setTimeout(() => feedback.innerText = "", 2000);
-          }).catch(err => {
-            console.error("Copy failed:", err);
-            feedback.innerText = "❌ Copy failed";
-            feedback.className = "text-danger fw-bold text-center";
-            setTimeout(() => feedback.innerText = "", 2000);
-          });
-        });
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      loadFeatures();
-      document.getElementById("featureForm").addEventListener("submit", submitFeature);
-      setupCopyButtons();
-    });
-  </script>
+  <!-- Custom CSS with cache busting -->
+  <link rel="stylesheet" href="style.css?v=20250903205444">
 </head>
 <body>
   <header>
     <h1>Fair Delivery Platform</h1>
     <p>Building a fair, transparent delivery ecosystem for couriers, customers, and merchants.</p>
-    <a href="https://www.linkedin.com/in/amr-lotfy?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="btn btn-light btn-sm mt-2">
+    <a href="https://www.linkedin.com/in/amr-lotfy" target="_blank" class="btn btn-light btn-sm mt-2">
       Connect on LinkedIn
     </a>
   </header>
 
   <main class="container my-4">
-
     <section id="story">
       <h2>Our Story</h2>
-      <p>After 10 years in Software QA (including 2 years as an iOS developer), the pandemic hit. I was laid off at 45, and my qualifications and age made it hard to re‑enter the tech job market. To make ends meet, I became a delivery courier.</p>
-      <p>I also lost my end‑of‑service payout in Egypt’s 2022 feed crisis — my last investment to secure a basic income for my family. That’s when I saw, first‑hand, the harsh reality couriers face: unfair pay, no protection, unstable income, no health or social insurance, and extreme weather damage to bikes.</p>
+      <p>After 10 years in Software QA (including 2 years as an iOS developer), the pandemic hit. I was laid off at 45, and my qualifications and age made it hard to re-enter the tech job market. To make ends meet, I became a delivery courier.</p>
+      <p>I also lost my end-of-service payout in Egypt’s 2022 feed crisis — my last investment to secure a basic income for my family. That’s when I saw, first-hand, the harsh reality couriers face: unfair pay, no protection, unstable income, no health or social insurance, and extreme weather damage to bikes.</p>
       <p>I even tried to start a couriers’ union, but faced legal barriers and lack of collective support. So I decided to build a delivery platform focused on fairness, transparency, courier protection, and better service for customers and merchants.</p>
     </section>
 
     <section id="metrics" class="text-center">
       <h2>Funding Progress</h2>
-      <p class="fs-5"><strong>Funded Development Days:</strong> 0</p>
+      <p class="fs-5"><strong>Funded Development Days:</strong> <span id="funded-days">0</span></p>
+      <div class="progress mx-auto" style="max-width: 400px;">
+        <div id="funding-progress-bar" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
     </section>
 
     <section id="contribute" class="text-center">
       <h2>How to Contribute</h2>
-      <div class="payment-method">
-        <span class="payment-label">Vodafone Cash:</span>
-        <span class="payment-value" id="wallet-vodafone">01094450141</span>
-        <button class="copy-btn" data-target="wallet-vodafone">📋</button>
+      <p class="mb-3">Support our mission by contributing via one of the methods below:</p>
+      <div class="row g-3 justify-content-center">
+        <div class="col-md-4">
+          <div class="payment-card">
+            <span class="payment-label">Vodafone Cash:</span>
+            <span class="payment-value" id="wallet-vodafone">01094450141</span>
+            <button class="copy-btn" data-target="wallet-vodafone" aria-label="Copy Vodafone Cash number" title="Click to copy">📋</button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="payment-card">
+            <span class="payment-label">Skrill/PayPal:</span>
+            <span class="payment-value" id="wallet-paypal">amr.lotfy.othman@gmail.com</span>
+            <button class="copy-btn" data-target="wallet-paypal" aria-label="Copy Skrill/PayPal email" title="Click to copy">📋</button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="payment-card">
+            <span class="payment-label">USDT (TRC20):</span>
+            <span class="payment-value" id="wallet-usdt">TGokJ43uzZvxwMAAsPaAtFmakZ1iQr4WTS</span>
+            <button class="copy-btn" data-target="wallet-usdt" aria-label="Copy USDT TRC20 address" title="Click to copy">📋</button>
+          </div>
+        </div>
       </div>
-      <div class="payment-method">
-        <span class="payment-label">Skrill/PayPal:</span>
-        <span class="payment-value" id="wallet-paypal">amr.lotfy.othman@gmail.com</span>
-        <button class="copy-btn" data-target="wallet-paypal">📋</button>
-      </div><div class="payment-method">
-        <span class="payment-label">USDT (TRC20):</span>
-        <span class="payment-value" id="wallet-usdt">TGokJ43uzZvxwMAAsPaAtFmakZ1iQr4WTS</span>
-        <button class="copy-btn" data-target="wallet-usdt">📋</button>
-      </div>
-      <p id="copy-feedback" class="mt-2"></p>
+      <p id="copy-feedback" class="mt-2" aria-live="polite"></p>
     </section>
 
     <section id="feature-request">
       <h2>Suggest a Feature</h2>
-      <form id="featureForm" class="mt-3">
-        <div class="mb-3">
-          <label class="form-label">Your Name (optional):</label>
-          <input type="text" id="name" class="form-control" placeholder="John Doe"/>
+      <form id="featureForm" class="mt-3 row g-3">
+        <div class="col-md-6">
+          <label for="name" class="form-label">Your Name (optional):</label>
+          <input type="text" id="name" class="form-control" placeholder="John Doe" />
         </div>
-        <div class="mb-3">
-          <label class="form-label">Who are you?</label>
+        <div class="col-md-6">
+          <label for="persona" class="form-label">Who are you?</label>
           <select id="persona" class="form-select" required>
+            <option value="" disabled selected>Select your role</option>
             <option value="customer">Customer</option>
             <option value="courier">Courier</option>
             <option value="merchant">Merchant</option>
           </select>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Feature Description:</label>
-          <textarea id="description" class="form-control" rows="3" required></textarea>
+        <div class="col-12">
+          <label for="description" class="form-label">Feature Description:</label>
+          <textarea id="description" class="form-control" rows="4" required></textarea>
+          <small id="char-count" class="text-muted">0 / 500</small>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Submit Feature</button>
+        </div>
       </form>
-      <p id="confirmation" class="mt-2"></p>
+      <p id="confirmation" class="mt-2" aria-live="polite"></p>
     </section>
 
     <section id="features">
       <h2>Requested Features</h2>
       <ul id="featureList" class="list-group mt-3"></ul>
     </section>
-
   </main>
 
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="app.js?v=20250903205444"></script>
 </body>
 </html>
